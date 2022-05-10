@@ -9,6 +9,7 @@ import {ReactComponent as ShoppingCart} from "./assets/winkelmandje.svg";
 
 function App() {
     const [messageValue, setMessageValue] = React.useState('');
+    const [checkedTerms, toggleCheckedTerms] = React.useState(false);
     return (
         <>
             <nav>
@@ -56,12 +57,27 @@ function App() {
                             type="text"
                             placeholder="Typ hier jouw bericht"
                             name="message"
+                            className={messageValue.length > 20 ? "input-error" : "input-normal"}
                             value={messageValue}
                             onChange={(e) => setMessageValue(e.target.value)}
                         />
+                        <label htmlFor="terms-and-conditions">
+                            <input
+                                type="checkbox"
+                                name="terms-and-conditions"
+                                id="terms-and-conditions"
+                                checked={checkedTerms}
+                                onChange={() => toggleCheckedTerms(!checkedTerms)}
+                            />
+
+                            Ik ga akkoord met de algemene voorwaarden
+                        </label>
                     </form>
 
-                    <button type="submit">
+                    <button
+                        type="submit"
+                        disabled={!checkedTerms}
+                    >
                         Verstuur
                     </button>
                 </div>
